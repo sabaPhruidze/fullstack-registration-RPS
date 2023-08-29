@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import moment from 'moment';
 interface User {
   employee_id: number;
   first_name: string;
@@ -9,7 +9,7 @@ interface User {
   hire_date: string;
 }
 
-function App() {
+export default function App() {
   const [data, setData] = useState<User[]>([]);
 
   useEffect(() => {
@@ -30,15 +30,19 @@ function App() {
     "job",
     "hire date",
   ];
-
+  const formatDate = (date: string) => {
+    return moment(date).format('YYYY-MM-DD');
+  }
   return (
     <>
       <div>
         <table>
           <thead>
+            <tr>
             {tableHead.map((th: string, idx: number) => {
               return <th key={idx}>{th}</th>;
             })}
+            </tr>
           </thead>
           <tbody>
             {data.map((user: User, idx: number) => (
@@ -48,7 +52,8 @@ function App() {
                 <td>{user.last_name}</td>
                 <td>{user.hourly_pay}</td>
                 <td>{user.job}</td>
-                <td>{user.hire_date}</td>
+                
+                <td>{formatDate(user.hire_date)}</td>
               </tr>
             ))}
           </tbody>
@@ -57,5 +62,3 @@ function App() {
     </>
   );
 };
-
-export default App;
