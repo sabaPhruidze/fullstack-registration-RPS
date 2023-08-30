@@ -1,4 +1,4 @@
-import styled,{css,createGlobalStyle} from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 
 export const Globalstyles = createGlobalStyle`
     * {
@@ -7,6 +7,12 @@ export const Globalstyles = createGlobalStyle`
         box-sizing:border-box;
     }
     body {
-        background-color:black;
+        width:100vw;
+        height:100vh;
+        background-color:${props => props.theme.green.lightplus};
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
     }
 `
