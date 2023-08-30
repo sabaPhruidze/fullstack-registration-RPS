@@ -1,6 +1,10 @@
 import {createGlobalStyle} from 'styled-components'
 
 export const Globalstyles = createGlobalStyle`
+    @font-face {
+        font-family: "opensans";
+        src: url("../../assets/font/OpenSans_Condensed-Regular.ttf");
+    }
     * {
         margin:0;
         padding:0;

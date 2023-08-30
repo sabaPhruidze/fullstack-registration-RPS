@@ -14,6 +14,7 @@ interface Colors {
   };
   white: string;
   black: string;
+  neonRed:string;
 }
 
 export default function Root() {
@@ -27,7 +28,8 @@ export default function Root() {
       neon:"#39ff14",
     },
     white:'white',
-    black:"black"
+    black:"black",
+    neonRed:"#FF1F1F"
   }
   return (
     <ThemeProvider theme={colors}>

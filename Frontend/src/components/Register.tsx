@@ -14,27 +14,32 @@ type UseForm = {
 }
 
 export default function Register() {
-  const {register, handleSubmit} = useForm<UseForm>();
+  const {register, handleSubmit,formState: {errors}} = useForm<UseForm>();
 
-  const onSubmit = (data:UseForm) => {
-    console.log(data)
+  const onSubmit = () => {
+    
+    
   }
-
+  console.log("Errors", errors);
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          <Input placeholder="First name" {...register('firstname')} />
+          <Input placeholder="First name" {...register('firstname',{pattern:{message:"error for name", value:/^[A-Za-z]+$/}})} />
           <div style={{width:50}}/>{/* For space between */}
           <Input placeholder="Last name" {...register('lastname')} />
         </Row>
-        <Input {...register('email')} />
-        <Input {...register('phone')} />
-        <Input {...register('password')} />
-        <Input {...register('birthday')} />
-        <Input {...register('gender')} />
+       
+        <Input placeholder="Email" {...register('email')} />
+        <Input placeholder="Phone number" {...register('phone')} />
+        <Input placeholder="Password" {...register('password')} />
+        {/* <Input {...register('birthday')} />
+        <Input {...register('gender')} /> */}
         <button type="submit">Register</button>
       </Form>
+      {errors.firstname && <p style={{color:'red'}}>{errors.firstname.message}</p>}
+      {errors.lastname && <p style={{color:'red'}}>{errors.lastname.message}</p>}
+      
     </Container>
   )
 }
