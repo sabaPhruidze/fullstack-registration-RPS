@@ -9,7 +9,7 @@ export const Globalstyles = createGlobalStyle`
     body {
         width:100vw;
         height:100vh;
-        background-color:${props => props.theme.green.lightplus};
+        background-color:${({theme}) => theme.green.lightplus};// descruturisation
         display:flex;
         flex-direction:column;
         justify-content:center;

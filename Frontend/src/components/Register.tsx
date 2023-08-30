@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
-
+import { Container } from "./pieces/Container";
+import { Form } from "./pieces/Form";
+import { Input } from "./pieces/Input";
+import { Row } from "./pieces/Row";
 type UseForm = {
   firstname:string,
   lastname:string,
@@ -18,19 +21,19 @@ export default function Register() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <input {...register('firstname')} />
-          <input {...register('lastname')} />
-        </div>
-        <input {...register('email')} />
-        <input {...register('phone')} />
-        <input {...register('password')} />
-        <input {...register('birthday')} />
-        <input {...register('gender')} />
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Row>
+          <Input {...register('firstname')} />
+          <Input {...register('lastname')} />
+        </Row>
+        <Input {...register('email')} />
+        <Input {...register('phone')} />
+        <Input {...register('password')} />
+        <Input {...register('birthday')} />
+        <Input {...register('gender')} />
         <button type="submit">Register</button>
-      </form>
-    </div>
+      </Form>
+    </Container>
   )
 }
