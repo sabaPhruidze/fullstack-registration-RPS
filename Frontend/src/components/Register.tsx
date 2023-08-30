@@ -24,8 +24,9 @@ export default function Register() {
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          <Input {...register('firstname')} />
-          <Input {...register('lastname')} />
+          <Input placeholder="First name" {...register('firstname')} />
+          <div style={{width:50}}/>{/* For space between */}
+          <Input placeholder="Last name" {...register('lastname')} />
         </Row>
         <Input {...register('email')} />
         <Input {...register('phone')} />
