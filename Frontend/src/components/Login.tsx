@@ -52,7 +52,6 @@ export default function Login() {
                 <td>{user.last_name}</td>
                 <td>{user.hourly_pay}</td>
                 <td>{user.job}</td>
-                
                 <td>{formatDate(user.hire_date)}</td>
               </tr>
             ))}
