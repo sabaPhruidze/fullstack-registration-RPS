@@ -1,8 +1,14 @@
+import {useState} from 'react';
 import { useForm } from "react-hook-form";
 import { Container } from "./pieces/Container";
 import { Form } from "./pieces/Form";
 import { Input } from "./pieces/Input";
 import { Row } from "./pieces/Row";
+import { Errors } from "./pieces/Errors";
+import { ErrorsContainer } from "./pieces/ErrorsContainer";
+import { DarkBG } from "./pieces/DarkBG";
+import { Button } from './pieces/Button';
+
 type UseForm = {
   firstname:string,
   lastname:string,
@@ -15,31 +21,30 @@ type UseForm = {
 
 export default function Register() {
   const {register, handleSubmit,formState: {errors}} = useForm<UseForm>();
-
-  const onSubmit = () => {
-    
-    
+  // const [callAlert,setCallAlert] = useState<boolean>(false);
+  
+  const onSubmit = (data:any) => {
+ console.log(errors,data);
   }
-  console.log("Errors", errors);
+  
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          <Input placeholder="First name" {...register('firstname',{pattern:{message:"error for name", value:/^[A-Za-z]+$/}})} />
+          <Input placeholder="First name" {...register('firstname',{pattern:{message:"You must write only english letters inside firstname input", value:/^[A-Za-z]+$/}})} />
           <div style={{width:50}}/>{/* For space between */}
-          <Input placeholder="Last name" {...register('lastname')} />
+          <Input placeholder="Last name" {...register('lastname',{pattern: {message:"You must write only english letters inside last name input", value:/^[A-Za-z]+$/}})} />
         </Row>
-       
-        <Input placeholder="Email" {...register('email')} />
+        <Input placeholder="Email" {...register('email',{pattern: {message:"You must write casual type of email", value:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/}})} />
         <Input placeholder="Phone number" {...register('phone')} />
         <Input placeholder="Password" {...register('password')} />
         {/* <Input {...register('birthday')} />
         <Input {...register('gender')} /> */}
-        <button type="submit">Register</button>
+        <Button type="submit">Register</Button>
       </Form>
-      {errors.firstname && <p style={{color:'red'}}>{errors.firstname.message}</p>}
-      {errors.lastname && <p style={{color:'red'}}>{errors.lastname.message}</p>}
-      
+           {errors.firstname && <Errors>{errors.firstname.message}</Errors>}
+           {errors.lastname && <Errors>{errors.lastname.message}</Errors>}
+           {errors.email && <Errors>{errors.email.message}</Errors>}
     </Container>
   )
 }

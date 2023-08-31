@@ -20,7 +20,7 @@ interface Colors {
 export default function Root() {
   const colors:Colors = {
     green: {
-      light : "#0A5C36",
+      light : "#11c772",
       lightplus: "#0F5132",
       middle:"#14452f",
       middleplus:"#18392b",
@@ -29,7 +29,7 @@ export default function Root() {
     },
     white:'white',
     black:"black",
-    neonRed:"#FF1F1F"
+    neonRed:"#FF1F1F",
   }
   return (
     <ThemeProvider theme={colors}>
