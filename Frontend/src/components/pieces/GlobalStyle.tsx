@@ -2,13 +2,14 @@ import {createGlobalStyle} from 'styled-components'
 
 export const Globalstyles = createGlobalStyle`
     @font-face {
-        font-family: "opensans";
-        src: url("../../assets/font/OpenSans_Condensed-Regular.ttf");
+        font-family: opensans;
+        src: url(../../assets/font/OpenSans_Condensed-Bold);
     }
     * {
         margin:0;
         padding:0;
         box-sizing:border-box;
+        font-family: opensans;
     }
     body {
         width:100vw;
@@ -18,5 +19,6 @@ export const Globalstyles = createGlobalStyle`
         flex-direction:column;
         justify-content:center;
         align-items:center;
+        
     }
 `

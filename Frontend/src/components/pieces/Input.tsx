@@ -7,7 +7,6 @@ export const Input = styled.input`
     border-radius: 10px;
     margin-bottom:15px;
     padding: 0 10px;
-    font-family: "opensans";
     font-size:25px;
     &:focus {
         outline:0;
