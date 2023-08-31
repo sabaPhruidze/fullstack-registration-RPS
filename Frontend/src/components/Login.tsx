@@ -1,63 +1,53 @@
-import  { useState, useEffect } from "react";
-import moment from 'moment';
-interface User {
-  employee_id: number;
-  first_name: string;
-  last_name: string;
-  hourly_pay: number;
-  job: string;
-  hire_date: string;
-}
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Container } from "./pieces/Container";
+import { Form } from "react-router-dom";
+import { Input } from "./pieces/Input";
+import { Errors } from "./pieces/Errors";
+import { Button } from "./pieces/Button";
+
+type UseForm = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: number;
+  password: string;
+  login: string;
+};
 
 export default function Login() {
-  const [data, setData] = useState<User[]>([]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UseForm>();
 
-  useEffect(() => {
-    fetch("http://localhost:8081/users")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  const tableHead: string[] = [
-    "Id",
-    "first name",
-    "last name",
-    "hourly pay",
-    "job",
-    "hire date",
-  ];
-  const formatDate = (date: string) => {
-    return moment(date).format('YYYY-MM-DD');
-  }
+  const onSubmit = (data: UseForm) => {
+    // useEffect(() => {
+    //   fetch("http://localhost:8081/users")
+    //     .then((res) => res.json())
+    //     .then((info) => {
+    //       setData(data);
+    //       console.log(data);
+    //     })
+    //     .catch((err) => console.log(err));
+    // }, []);
+  };
   return (
-    <>
-      <div>
-        <table>
-          <thead>
-            <tr>
-            {tableHead.map((th: string, idx: number) => {
-              return <th key={idx}>{th}</th>;
-            })}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((user: User, idx: number) => (
-              <tr key={idx}>
-                <td>{user.employee_id}</td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{user.hourly_pay}</td>
-                <td>{user.job}</td>
-                <td>{formatDate(user.hire_date)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          placeholder="Email"
+          {...register("login", { required: true })}
+          style={{ marginBottom: errors.login ? 5 : 15 }}
+        />
+        <Input
+          placeholder="Password"
+          {...register("password", { required: true })}
+          style={{ marginBottom: 25 }}
+        />
+        <Button type="submit">Login</Button>
+      </Form>
+    </Container>
   );
-};
+}
