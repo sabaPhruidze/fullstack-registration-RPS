@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { Img } from "./pieces/Img";
 import paper from "../assets/img/paper.svg";
 import scissors from "../assets/img/scissors.svg";
 import rock from "../assets/img/rock.svg";
 import press from "../assets/img/button.svg";
+import { Row } from "./pieces/Row";
+import men from "../assets/img/man.svg";
+import robot from "../assets/img/robot.svg";
 import "./pieces/styled.css";
 
 export default function Game() {
@@ -29,6 +33,7 @@ export default function Game() {
       setScore(score - 1);
     }
     console.log(score, playerChoice, computerChoice);
+
     return score;
   }
 
@@ -59,13 +64,29 @@ export default function Game() {
           </button>
         </div>
         <div className="resultContainer">
-          <div id="player-score"></div>
-          <div id="hands"></div>
-          <div id="result"></div>
+          {button ? (
+            <div>
+              <p>Your score : {score}</p>
+              <Row>
+                <div>
+                  <Img src={men} />
+                  {click}
+                </div>
+                <div style={{ width: 30 }} />
+                <div>
+                  <Img src={robot} />
+                  {getComputerChoice()}
+                </div>
+              </Row>
+            </div>
+          ) : (
+            ""
+          )}
           <button
             id="endGameButton"
             onClick={() => {
               getResult(click, getComputerChoice());
+              setButton(true);
             }}
           >
             🔴
