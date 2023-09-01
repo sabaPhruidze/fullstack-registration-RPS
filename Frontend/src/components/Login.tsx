@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { Container } from "./pieces/Container";
 import { Form } from "react-router-dom";
 import { Input } from "./pieces/Input";
 import { Button } from "./pieces/Button";
+import { startContext } from "./Root";
 
 type Retrieved = {
   id: number;
@@ -20,9 +22,10 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const [retriveData, setRetriveData] = useState<Retrieved[]>();
-
+  const [retriveData, setRetriveData] = useState<Retrieved[] | undefined>();
+  const myContext = useContext(startContext);
+  const { loginS, setLoginS } = myContext;
+  const navigate = useNavigate();
   useEffect(() => {
     if (!retriveData) {
       fetch("http://localhost:8081/login")
@@ -33,7 +36,15 @@ export default function Login() {
     }
   }, [retriveData]);
   console.log(retriveData);
-  const onSubmit = (data: any) => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    retriveData &&
+      retriveData.map((info: Retrieved) => {
+        if (info.email === data.login && info.password === data.password) {
+          setLoginS(true);
+          navigate("/game");
+        }
+      });
+  };
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>

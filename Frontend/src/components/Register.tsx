@@ -27,7 +27,7 @@ export default function Register() {
   const onSubmit = (data: UseForm) => {
     axios
       .post("http://localhost:8081/signup", data)
-      .then((res) => console.log("registered succesfully"))
+      .then((res) => console.log("sent"))
       .catch((err) => console.log(err));
     navigate("/");
   };
