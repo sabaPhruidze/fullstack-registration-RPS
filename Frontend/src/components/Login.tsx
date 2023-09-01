@@ -1,10 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { Container } from "./pieces/Container";
 import { Form } from "react-router-dom";
 import { Input } from "./pieces/Input";
 import { Button } from "./pieces/Button";
+import { Row } from "./pieces/Row";
+import { Column } from "./pieces/Column";
+import { Paragraph } from "./pieces/paragraph";
 import { startContext } from "./Root";
 
 type Retrieved = {
@@ -58,7 +61,23 @@ export default function Login() {
           {...register("password", { required: true })}
           style={{ marginBottom: 25 }}
         />
-        <Button type="submit">Login</Button>
+        <Row>
+          <Button type="submit">Login</Button>
+          <Column>
+            <Link
+              to="/register"
+              style={{ color: "#14452f", textDecoration: "none" }}
+            >
+              <Paragraph>Registration</Paragraph>
+            </Link>
+            <Link
+              to="/game"
+              style={{ color: "#14452f", textDecoration: "none" }}
+            >
+              <Paragraph>game page</Paragraph>
+            </Link>
+          </Column>
+        </Row>
       </Form>
     </Container>
   );
