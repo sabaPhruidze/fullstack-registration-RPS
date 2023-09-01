@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Img } from "./pieces/Img";
-import paper from "../assets/img/paper.svg";
-import scissors from "../assets/img/scissors.svg";
-import rock from "../assets/img/rock.svg";
-import press from "../assets/img/button.svg";
-import { Row } from "./pieces/Row";
 import men from "../assets/img/man.svg";
 import robot from "../assets/img/robot.svg";
-import "./pieces/styled.css";
+
+import { Dark } from "./pieces/Dark";
+import { GameContainer } from "./pieces/GameContainer";
+import { OkeyButton } from "./pieces/OkeyButton";
+import { GameButton } from "./pieces/GameButton";
+import { Buttons } from "./pieces/Buttons";
+import { Row } from "./pieces/Row";
+import { Wrapper } from "./pieces/Wrapper";
+import { ResultContainer } from "./pieces/ResultContainer";
+import { Congrats } from "./pieces/Congrats";
 
 export default function Game() {
-  // console.log(getComputerChoice());
   const [click, setClick] = useState<string>("");
   const [button, setButton] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
@@ -32,67 +35,73 @@ export default function Game() {
     } else {
       setScore(score - 1);
     }
-    console.log(score, playerChoice, computerChoice);
-
     return score;
   }
 
   return (
-    <div>
-      <div className="wrapper">
-        <div className="buttons">
-          <button
-            className="rpsButton"
-            value="Rock"
-            onClick={() => setClick("Rock")}
-          >
-            ✊
-          </button>
-          <button
-            className="rpsButton"
-            value="Paper"
-            onClick={() => setClick("Paper")}
-          >
-            🤚
-          </button>
-          <button
-            className="rpsButton"
-            value="Scissors"
-            onClick={() => setClick("Scissors")}
-          >
-            ✌️
-          </button>
-        </div>
-        <div className="resultContainer">
+    <GameContainer>
+      {score === 5 && (
+        <>
+          <Dark />
+          <Congrats>
+            Congratulations, You have won
+            <OkeyButton
+              onClick={() => {
+                setScore(0);
+              }}
+            >
+              Refresh
+            </OkeyButton>
+          </Congrats>
+        </>
+      )}
+      <Wrapper>
+        <Buttons>
+          <GameButton onClick={() => setClick("Rock")}>✊</GameButton>
+          <GameButton onClick={() => setClick("Paper")}>🤚</GameButton>
+          <GameButton onClick={() => setClick("Scissors")}>✌️</GameButton>
+        </Buttons>
+        <ResultContainer>
           {button ? (
-            <div>
+            <>
               <p>Your score : {score}</p>
               <Row>
-                <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <Img src={men} />
                   {click}
                 </div>
                 <div style={{ width: 30 }} />
-                <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <Img src={robot} />
                   {getComputerChoice()}
                 </div>
               </Row>
-            </div>
+            </>
           ) : (
             ""
           )}
-          <button
-            id="endGameButton"
+          <GameButton
             onClick={() => {
               getResult(click, getComputerChoice());
               setButton(true);
             }}
           >
             🔴
-          </button>
-        </div>
-      </div>
-    </div>
+          </GameButton>
+        </ResultContainer>
+      </Wrapper>
+    </GameContainer>
   );
 }
